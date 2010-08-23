@@ -27,6 +27,12 @@ require_once("lib/OAuth.php");
 	
 	$tw = new TwitterTools($consumer_key,$consumer_secret);
 	$state = $tw->checkState();
+	/*
+	 * possible states:
+	 * start - not authenticated, first access
+	 * returned - user just authorized your app and returned
+	 * logged - user are logged in
+	 */ 
 	switch($state)
 	{
 		case "start":
@@ -49,7 +55,7 @@ require_once("lib/OAuth.php");
 			<div class="box">
 			<h3>POST Test</h3>
 			<form method="post">
-			<textarea name="newstatus" cols="60" rows="3">Post test using TwitterTools 2.0 from @erikaheidi. Download/info here: http://erikafocke.com.br/twittertools</textarea><br/>
+			<textarea name="newstatus" cols="60" rows="3">Post test using TwitterTools from @erikaheidi. Download/info here: http://github.com/erikaheidi/Twittertools</textarea><br/>
 			<input type="submit" name="submit" value="Postar no Twitter"/>
 			</form>
 			</div>

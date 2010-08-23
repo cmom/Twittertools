@@ -17,7 +17,7 @@ if(isset($_GET['logout']))
 </head>
 <body>
 <h2>Twitter Tools Demo - Mentions</h2>
-<a href="index.php">Voltar para o inicio</a>
+<a href="index.php">Back</a>
 <?php
 require_once("lib/TwitterTools.php");
 require_once("lib/TwitterOAuth.php");
