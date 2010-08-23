@@ -10,7 +10,7 @@ if(isset($_GET['logout']))
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>TwitterTools - DEMO</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="examples/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <h2>Twitter Tools Demo</h2>
@@ -52,54 +52,19 @@ require_once("lib/OAuth.php");
 			
 			?>
 			<p>You are logged in as: <strong><?=$credentials->screen_name?></strong> [ <a href="./?logout=1">LOGOUT</a> ]</p>
-			<div class="box">
-			<h3>POST Test</h3>
-			<form method="post">
-			<textarea name="newstatus" cols="60" rows="3">Post test using TwitterTools from @erikaheidi. Download/info here: http://github.com/erikaheidi/Twittertools</textarea><br/>
-			<input type="submit" name="submit" value="Postar no Twitter"/>
-			</form>
-			</div>
+
 			
-			<div class="box">
-			<h3>Follow Test</h3>
-			
-			<p><strong>stay in touch ;P!</strong> <a href="./?follow=1">Clique here to follow @erikaheidi on twitter.</a></p>
-			</div>
-			
-			<div class="box">
-			<h3>More examples / Tests</h3>
-			<p><strong>Timeline</strong> <a href="timeline.php">Click here to view your timelime.</a></p>
-			<p><strong>Mentions</strong> <a href="mentions.php">Click here to view your mentions (@'s).</a></p>
-			<p><strong>DMs</strong> <a href="dms.php">Click here to view your DMs.</a></p>
-			<p><strong>Followers</strong> <a href="followers.php">Click here to view your followers or any user followers.</a></p>
-			</div>
 <?
 	}//switch
-
-
-
-if(isset($_GET['follow']))
-{
-	$tw->follow("erikaheidi");
-	echo "<p>You are now following @erikaheidi.</p>";
-}	
-	
-if(isset($_POST['newstatus']))
-{	
-
-	
-	$result = $tw->sendWithOAuth(utf8_encode($_POST['newstatus']));
-	
-	/* debug */
-	
-	if($result)
-	{
-		print_r($result);
-		echo "<p>Check your status: <a href='http://twitter.com/$credentials->screen_name'>http://twitter.com/$credentials->screen_name</a></p>";
-	}
-	else
-		echo "An error ocurred.";
-}
 ?>
+			<div class="box">
+			<h3>All examples / Tests</h3>
+			<p><strong>Update</strong> <a href="examples/update.php">You can update your status in this example.</a></p>
+			<p><strong>Follow</strong> <a href="examples/follow.php">Click here to check a follow example.</a></p>
+			<p><strong>Timeline</strong> <a href="examples/timeline.php">Click here to view your timelime.</a></p>
+			<p><strong>Mentions</strong> <a href="examples/mentions.php">Click here to view your mentions (@'s).</a></p>
+			<p><strong>DMs</strong> <a href="examples/dms.php">Click here to view your DMs.</a></p>
+			<p><strong>Followers</strong> <a href="examples/followers.php">Click here to view your followers or any user followers.</a></p>
+			</div>
 </body>
 </html>

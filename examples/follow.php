@@ -16,13 +16,12 @@ if(isset($_GET['logout']))
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h2>Twitter Tools Demo - Followers</h2>
-<a href="index.php">Back</a>
+<h2>Twitter Tools Demo - Follow</h2>
+<a href="../index.php">Back</a>
 <?php
-require_once("lib/TwitterTools.php");
-require_once("lib/TwitterOAuth.php");
-require_once("lib/OAuth.php");
-
+require_once("../lib/TwitterTools.php");
+require_once("../lib/TwitterOAuth.php");
+require_once("../lib/OAuth.php");
 	/* consumer key & consumer secret - register an app to get yours at:
 	 * http://dev.twitter.com/apps/new
 	 */
@@ -37,7 +36,7 @@ require_once("lib/OAuth.php");
 			
 			$request_link = $tw->getAuthLink();
 			echo '<h3>Sign in with your twitter account</h3>';
-			echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="img/sign-in-with-twitter-d.png" /></a></p>';
+			echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="../img/sign-in-with-twitter-d.png" /></a></p>';
 			
 			break;
 
@@ -54,41 +53,22 @@ require_once("lib/OAuth.php");
 <?
 	}//switch
 
-
+if(isset($_GET['follow']))
+{
+	$tw->follow("erikaheidi");
+	echo "<p>You are now following @erikaheidi.</p>";
+}
 
 if($tw->logged())
 {
-	if(isset($_GET['user']) AND !empty($_GET['user']) )
-		$user = $_GET['user'];
-	else
-		$user = $credentials->screen_name;
-		
-	$tweets = $tw->getFollowers($user,15);
-	if($tweets)
-	{
-	?>
-	<div class="box">
-	<h4><?=$user?>'s Followers (15 latest)</h4>
-	<form><p>Show followers from another user: <input type="text" name="user" /><input type="submit" value="Show"/></p></form>
-	<?
-		foreach($tweets as $tweet)
-		{
-			$dt = new DateTime($tweet->created_at);
-			?>
-			<div class="tweet">
-			<img src="<?=$tweet->profile_image_url?>" style="float:left;margin:5px;"/> <strong><?=$tweet->screen_name?></strong> <?=utf8_decode($tweet->status->text)?><br/>
-			<small><?=$tweet->status->created_at?></small>
-			<br clear="all"/>
+?>
+						
+			<div class="box">
+			<h3>Follow Test</h3>
+			
+			<p><strong>stay in touch ;P!</strong> <a href="./?follow=1">Clique here to follow @erikaheidi on twitter.</a></p>
 			</div>
-			<br clear="all"/>
-			<?
-		}	
-	?>
-	</div>
-	<?
-	}
-	else
-		echo "an error ocurred.";
+<?
 }
 
 ?>

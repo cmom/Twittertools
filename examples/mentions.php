@@ -17,11 +17,11 @@ if(isset($_GET['logout']))
 </head>
 <body>
 <h2>Twitter Tools Demo - Mentions</h2>
-<a href="index.php">Back</a>
+<a href="../index.php">Back</a>
 <?php
-require_once("lib/TwitterTools.php");
-require_once("lib/TwitterOAuth.php");
-require_once("lib/OAuth.php");
+require_once("../lib/TwitterTools.php");
+require_once("../lib/TwitterOAuth.php");
+require_once("../lib/OAuth.php");
 	/* consumer key & consumer secret - register an app to get yours at:
 	 * http://dev.twitter.com/apps/new
 	 */
@@ -36,7 +36,7 @@ require_once("lib/OAuth.php");
 			
 			$request_link = $tw->getAuthLink();
 			echo '<h3>Sign in with your twitter account</h3>';
-			echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="img/sign-in-with-twitter-d.png" /></a></p>';
+			echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="../img/sign-in-with-twitter-d.png" /></a></p>';
 			
 			break;
 
