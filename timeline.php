@@ -62,7 +62,7 @@ if($tw->logged())
 	<div class="box">
 	<h4>Your Timeline (15 latest tweets)</h4>
 	<?
-		foreach($tweets->status as $tweet)
+		foreach($tweets as $tweet)
 		{
 			
 			?>

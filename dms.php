@@ -64,7 +64,7 @@ if($tw->logged())
 	<div class="box">
 	<h4>Your Direct Messages (15 latest)</h4>
 	<?
-		foreach($tweets->direct_message as $tweet)
+		foreach($tweets as $tweet)
 		{
 			$dt = new DateTime($tweet->created_at);
 			?>

@@ -63,7 +63,7 @@ if($tw->logged())
 	else
 		$user = $credentials->screen_name;
 		
-	$tweets = $tw->getFolowers($user,15);
+	$tweets = $tw->getFollowers($user,15);
 	if($tweets)
 	{
 	?>
@@ -71,7 +71,7 @@ if($tw->logged())
 	<h4><?=$user?>'s Followers (15 latest)</h4>
 	<form><p>Show followers from another user: <input type="text" name="user" /><input type="submit" value="Show"/></p></form>
 	<?
-		foreach($tweets->user as $tweet)
+		foreach($tweets as $tweet)
 		{
 			$dt = new DateTime($tweet->created_at);
 			?>

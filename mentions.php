@@ -64,7 +64,7 @@ if($tw->logged())
 	<div class="box">
 	<h4>Your Mentions (@'s) (15 latest)</h4>
 	<?
-		foreach($tweets->status as $tweet)
+		foreach($tweets as $tweet)
 		{
 			$dt = new DateTime($tweet->created_at);
 			?>

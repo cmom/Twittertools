@@ -135,7 +135,10 @@ class TwitterTools{
 		
 		$ret= $twitter->OAuthRequest('http://api.twitter.com/1/statuses/home_timeline.xml',array("count"=>$limit), 'GET');		
 		if($ret)
-			return simplexml_load_string($ret);
+		{
+			$all = simplexml_load_string($ret);
+			return $all->status;
+		}
 	}
 	
 	function getMentions($limit=10)
@@ -144,7 +147,10 @@ class TwitterTools{
 		
 		$ret = $twitter->OAuthRequest('http://api.twitter.com/1/statuses/mentions.xml',array("include_rts"=>1,"count"=>$limit), 'GET');
 		if($ret)
-			return simplexml_load_string($ret);
+		{			
+			$all = simplexml_load_string($ret);
+			return $all->status;
+		}
 	}
 	
 	function getDms($limit=10)
@@ -153,10 +159,13 @@ class TwitterTools{
 		
 		$ret = $twitter->OAuthRequest('http://api.twitter.com/1/direct_messages.xml',array("cursor"=>$limit), 'GET');
 		if($ret)
-			return simplexml_load_string($ret);
+		{
+			$all = simplexml_load_string($ret);
+			return $all->direct_message;
+		}
 	}
 		
-	function getFolowers($screen_name,$limit=10)
+	function getFollowers($screen_name,$limit=10)
 	{
 		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret,$this->atoken,$this->atoken_secret);
 		
@@ -188,8 +197,10 @@ class TwitterTools{
 		
 		$ret = $twitter->OAuthRequest('http://api.twitter.com/1/users/lookup.xml',array("user_id"=>$lista_users), 'GET');
 		if($ret)
-			return simplexml_load_string($ret);
-		
+		{
+			$all = simplexml_load_string($ret);
+			return $all->user;
+		}		
 	}
 }
 
