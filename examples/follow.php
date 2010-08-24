@@ -55,8 +55,12 @@ require_once("../lib/OAuth.php");
 
 if(isset($_GET['follow']))
 {
-	$tw->follow("erikaheidi");
-	echo "<p>You are now following @erikaheidi.</p>";
+	$ret = $tw->follow("erikaheidi");
+
+	//echo "<p>You are now following @erikaheidi.</p>";
+	echo "<p>Retorno:</p><pre>";
+	echo $ret;
+	echo "</pre>";
 }
 
 if($tw->logged())
@@ -66,7 +70,7 @@ if($tw->logged())
 			<div class="box">
 			<h3>Follow Test</h3>
 			
-			<p><strong>stay in touch ;P!</strong> <a href="./?follow=1">Clique here to follow @erikaheidi on twitter.</a></p>
+			<p><strong>stay in touch ;P!</strong> <a href="follow.php?follow=1">Clique here to follow @erikaheidi on twitter.</a></p>
 			</div>
 <?
 }
