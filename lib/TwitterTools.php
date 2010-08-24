@@ -83,8 +83,7 @@ class TwitterTools{
 	 */ 
 	function getCredentials()
 	{
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
-		$user = $twitter->OAuthRequest('http://api.twitter.com/account/verify_credentials.xml', array(), 'GET');
+		$user = $this->makeRequest('http://api.twitter.com/account/verify_credentials.xml');
 		if($user)
 			return simplexml_load_string($user);
 	}
@@ -104,9 +103,8 @@ class TwitterTools{
 		}
 		$message = substr($message,0,140);
 			
-		$twitter = new TwitterOAuth($this->consumer_key,$this->consumer_secret,$this->atoken, $this->atoken_secret);
-
-		return $twitter->OAuthRequest('http://api.twitter.com/statuses/update.xml', array('status' => $message), 'POST');
+		
+		return $this->makeRequest('http://api.twitter.com/statuses/update.xml', array('status' => $message), 'POST');
 	}
 	
 	
@@ -123,17 +121,12 @@ class TwitterTools{
 
 	function follow($to)
 	{
-	
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
-		
-		return $twitter->OAuthRequest('http://api.twitter.com/1/friendships/create.xml', array("screen_name"=>$to), 'POST');
+		return $this->makeRequest('http://api.twitter.com/1/friendships/create.xml', array("screen_name"=>$to), 'POST');
 	}
 	
 	function getTimeline($limit=10)
-	{
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
-		
-		$ret= $twitter->OAuthRequest('http://api.twitter.com/1/statuses/home_timeline.xml',array("count"=>$limit), 'GET');		
+	{	
+		$ret= $this->makeRequest('http://api.twitter.com/1/statuses/home_timeline.xml',array("count"=>$limit));		
 		if($ret)
 		{
 			$all = simplexml_load_string($ret);
@@ -142,10 +135,8 @@ class TwitterTools{
 	}
 	
 	function getMentions($limit=10)
-	{
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
-		
-		$ret = $twitter->OAuthRequest('http://api.twitter.com/1/statuses/mentions.xml',array("include_rts"=>1,"count"=>$limit), 'GET');
+	{	
+		$ret = $this->makeRequest('http://api.twitter.com/1/statuses/mentions.xml',array("include_rts"=>1,"count"=>$limit));
 		if($ret)
 		{			
 			$all = simplexml_load_string($ret);
@@ -155,9 +146,8 @@ class TwitterTools{
 	
 	function getDms($limit=10)
 	{
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
-		
-		$ret = $twitter->OAuthRequest('http://api.twitter.com/1/direct_messages.xml',array("cursor"=>$limit), 'GET');
+
+		$ret = $this->makeRequest('http://api.twitter.com/1/direct_messages.xml',array("cursor"=>$limit));
 		if($ret)
 		{
 			$all = simplexml_load_string($ret);
@@ -167,9 +157,8 @@ class TwitterTools{
 		
 	function getFollowers($screen_name,$limit=10)
 	{
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret,$this->atoken,$this->atoken_secret);
-		
-		$result = $twitter->OAuthRequest('http://api.twitter.com/1/followers/ids.xml',array("screen_name"=>$screen_name,"cursor"=>"-1"), 'GET');
+	
+		$result = $this->makeRequest('http://api.twitter.com/1/followers/ids.xml',array("screen_name"=>$screen_name,"cursor"=>"-1"));
 		
 		$ids = simplexml_load_string($result);
 	
@@ -193,14 +182,19 @@ class TwitterTools{
 	
 	function getUsersInfo($lista_users)
 	{
-		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
-		
-		$ret = $twitter->OAuthRequest('http://api.twitter.com/1/users/lookup.xml',array("user_id"=>$lista_users), 'GET');
+		$ret = $this->makeRequest('http://api.twitter.com/1/users/lookup.xml',array("user_id"=>$lista_users));
 		if($ret)
 		{
 			$all = simplexml_load_string($ret);
 			return $all->user;
 		}		
+	}
+	
+	function makeRequest($api_url,$args=null,$method='GET')
+	{
+		$twitter = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->atoken, $this->atoken_secret);
+		
+		return $twitter->OAuthRequest($api_url,$args,$method);
 	}
 }
 
